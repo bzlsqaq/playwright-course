@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "playwright": "playwright test",
-    "playwright:ui": "playwright test --ui"  
+    "playwright:test1": "playwright test tests/politics_course.spec.js",
+    "playwright:test1:ui": "playwright test tests/politics_course.spec.js --ui"  
   },
   "keywords": [],
   "author": "",

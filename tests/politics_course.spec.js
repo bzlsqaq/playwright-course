@@ -19,7 +19,10 @@ test('politics_course', async () => {
     await page.goto('https://nbuyjs.yuketang.cn/pro/lms/CSs3mnBmJ7Y/28403852/studycontent');
     const newPagePromise = context.waitForEvent('page');
     let course_item = await page.locator('.section-list>.content').filter({hasNot:page.getByText('已完成').filter({visible:true})}).first()
-
+    
+    if(await course_item.locator('>div').count()>1){
+      course_item=await course_item.locator('>div').filter({hasNot:page.getByText('已完成').filter({visible:true})}).first()
+    }
     await course_item.click();
 
     let newpage = await newPagePromise;

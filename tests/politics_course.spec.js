@@ -1,14 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+//填写对应的页面链接
+const url ='https://nbuyjs.yuketang.cn/pro/lms/CSs3mnBmJ7Y/28403852/studycontent'
 
 const { chromium } = require('playwright');
-
 test('politics_course', async () => {
   test.setTimeout(10000000);
-  const userDataDir = 'C:\\Users\\23959\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default';
-  const context = await chromium.launchPersistentContext(userDataDir, {
+  
+  const browser= await chromium.launch({
     channel: 'msedge',
     headless: false
-  });
+  })
+  const context=await browser.newContext()
   let page = await context.newPage();
   
   // let log_num = 0;
@@ -16,7 +18,7 @@ test('politics_course', async () => {
   let course_finished
 
   do {
-    await page.goto('https://nbuyjs.yuketang.cn/pro/lms/CSs3mnBmJ7Y/28403852/studycontent');
+    await page.goto(url);
     const newPagePromise = context.waitForEvent('page');
     let course_item=await page.locator('.section-list>.content>div').filter({hasNot:page.getByText('已完成').filter({visible:true})}).first()
     

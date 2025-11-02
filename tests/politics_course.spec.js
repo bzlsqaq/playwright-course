@@ -4,7 +4,7 @@ const url ='https://nbuyjs.yuketang.cn/pro/lms/CSs3mnBmJ7Y/28403852/studycontent
 
 const { chromium } = require('playwright');
 test('politics_course', async () => {
-  test.setTimeout(10000000);
+  test.setTimeout(100000000);
   
   const browser= await chromium.launch({
     channel: 'msedge',

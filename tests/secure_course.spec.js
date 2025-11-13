@@ -9,7 +9,7 @@ const url1 = 'https://nbulabsafe.nbu.edu.cn/lab-study-front/examTask/177'
 
 
 test('nbu_course1', async ({page}) => {
-    test.setTimeout(10000000);
+    test.setTimeout(100000000);
     await page.goto('https://nbulabsafe.nbu.edu.cn/lab-study-front/person');
     await page.locator('.ivu-btn.ivu-btn-long.ivu-btn-primary').click()
 
@@ -41,27 +41,21 @@ test('nbu_course1', async ({page}) => {
 
         let current_text = await row.locator('.ppp').innerText();
         let str = await row.locator('.ivu-table-cell').nth(1).innerText()
-        let log_num=0
         await row.getByText('去学习').click()
         if (str !== '微课堂') {
             await page.locator('.alredyTime').waitFor({state: 'visible', timeout: 5000});
             let success = true
             while (success) {
+                await page.waitForTimeout(5000)
                 let time = await page.locator('.alredyTime').innerText()
                 if (typeof time !== 'string') {
                     throw new Error(`获取的时间不是字符串，实际值：${time}`);
                 }
                 let limit_time = await page.locator('.allTime').innerText()
 
-                let interval=Date.now()
-                interval=Math.floor(interval/1000)
 
-                if(interval%10===0&&log_num===0){
-                    console.log(current_text, time, limit_time)
-                    log_num++;
-                }else if(interval%10!==0){
-                    log_num=0
-                }
+                console.log(current_text, time, limit_time)
+
 
                 let num_time = mmssToSeconds(time, false)
                 let num_limit_time = mmssToSeconds(limit_time, false)
@@ -76,6 +70,7 @@ test('nbu_course1', async ({page}) => {
             let success = true
 
             while (success) {
+                await page.waitForTimeout(5000)
                 let time = await page.locator('.palyer_right_bottom>div>span').nth(0).innerText()
                 if (typeof time !== 'string') {
                     throw new Error(`获取的时间不是字符串，实际值：${time}`);
@@ -84,14 +79,8 @@ test('nbu_course1', async ({page}) => {
 
                 let num_time = mmssToSeconds(time, true)
                 let num_limit_time = mmssToSeconds(limit_time, true)
-                let interval=Date.now()
-                interval=Math.floor(interval/1000)
-                if(interval%10===0&&log_num===0){
-                    console.log(current_text, time, limit_time)
-                    log_num++;
-                }else if(interval%10!==0){
-                    log_num=0
-                }
+
+                console.log(current_text, time, limit_time)
 
                 if (num_time >= num_limit_time) {
                     success = false
